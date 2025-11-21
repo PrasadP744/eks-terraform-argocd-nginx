@@ -21,7 +21,6 @@ This repository provisions:
 - kubectl
 - helm
 - argocd CLI (optional)
-- jq (useful)
 
 ---
 

@@ -11,12 +11,11 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
     alb.ingress.kubernetes.io/success-codes: '200'
-    # Replace with your ACM certificate ARN for HTTPS
-    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:ACCOUNT-ID:certificate/CERTIFICATE-ID
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:539082126259:certificate/b50cd1cf-96e4-46b7-94b8-54dc453d863e
 spec:
   ingressClassName: alb
   rules:
-  - host: nginx.yourdomain.com  # Replace with your domain
+  - host: demoeks.click  # Replace with your domain
     http:
       paths:
       - path: /

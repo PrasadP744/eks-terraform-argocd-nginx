@@ -9,7 +9,7 @@ spec:
   project: default
   
   source:
-    repoURL: https://github.com/<YOUR-USERNAME>/<YOUR-REPO>.git
+    repoURL: https://github.com/PrasadP744/eks-terraform-argocd-nginx.git
     targetRevision: main
     path: manifests
   

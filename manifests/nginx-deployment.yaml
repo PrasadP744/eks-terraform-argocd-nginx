@@ -15,32 +15,13 @@ spec:
       labels:
         app: nginx
     spec:
+      securityContext:
+        fsGroup: 101
       containers:
       - name: nginx
         image: nginx:1.27-alpine
         ports:
         - containerPort: 80
-          name: http
-          protocol: TCP
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 200m
-            memory: 256Mi
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
         securityContext:
           runAsNonRoot: true
           runAsUser: 101
@@ -49,9 +30,33 @@ spec:
           capabilities:
             drop:
               - ALL
+
         volumeMounts:
         - name: nginx-cache
           mountPath: /var/cache/nginx
+        - name: nginx-run
+          mountPath: /var/run
+        - name: nginx-tmp
+          mountPath: /tmp
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
       volumes:
       - name: nginx-cache
+        emptyDir: {}
+      - name: nginx-run
+        emptyDir: {}
+      - name: nginx-tmp
         emptyDir: {}

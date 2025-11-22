@@ -1,6 +1,5 @@
 # EKS + Terraform + Helm(ALB Controller) + ArgoCD + NGINX (Mumbai / ap-south-1)
 
-Assignment reference: `/mnt/data/DevOps  Assignment for Experienced.pdf` :contentReference[oaicite:1]{index=1}
 
 ## Summary
 This repository provisions:

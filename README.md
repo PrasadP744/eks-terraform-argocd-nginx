@@ -22,6 +22,7 @@ This repository provisions:
 - argocd CLI (optional)
 
 ---
+All the configurations can also be done via AWS UI console like dns,IAM Roles,Certficate management,domain management, records and all CLI is also fun  
 
 ## 1) Create S3 bucket for Terraform backend
 ```bash

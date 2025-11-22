@@ -63,38 +63,6 @@ This project demonstrates a complete GitOps workflow using:
 - **DNS Management**: Route53 for domain management
 - **Sample Application**: NGINX web server
 
-## 🏗️ Architecture
-
-
-┌─────────────────────────────────────────────────────────────┐
-│                         Route 53                             │
-│                    (demoeks.click)                           │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│              Application Load Balancer (ALB)                 │
-│                   (SSL/TLS Termination)                      │
-│          Certificate: ACM (demoeks.click)                    │
-└──────────────┬──────────────────────────────────────────────┘
-               │
-               ├─────────────────┬─────────────────────────────┐
-               │                 │                             │
-               ▼                 ▼                             ▼
-    ┌──────────────────┐ ┌──────────────────┐   ┌──────────────────┐
-    │  NGINX Service   │ │  ArgoCD Server   │   │  Other Services  │
-    │  (demoeks.click) │ │(argocd.demoeks   │   │                  │
-    │                  │ │     .click)      │   │                  │
-    └──────────────────┘ └──────────────────┘   └──────────────────┘
-               │                 │
-               ▼                 ▼
-    ┌─────────────────────────────────────────────────────────┐
-    │                    EKS Cluster                           │
-    │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
-    │  │  Node Group │  │  Node Group │  │  Node Group │    │
-    │  │   (t3.med)  │  │   (t3.med)  │  │   (t3.med)  │    │
-    │  └─────────────┘  └─────────────┘  └─────────────┘    │
-
 
 ## 📦 Prerequisites
 
@@ -129,24 +97,32 @@ Before starting, ensure you have the following installed:
 
 ## 📁 Project Structure
 
-```
-eks-terraform-argocd-nginx/
-├── terraform/
-│   ├── main.tf              # Main EKS cluster configuration
-│   ├── variables.tf         # Input variables
-│   ├── outputs.tf           # Output values (kubeconfig, etc.)
-│   ├── vpc.tf               # VPC configuration
-│   └── eks.tf               # EKS node groups and IAM roles
-├── manifests/
-│   ├── nginx-deployment.yaml # NGINX Kubernetes deployment
-│   └── nginx-service.yaml    # NGINX Kubernetes service
-├── argocd/
-│   ├── argocd-application.yaml    # ArgoCD application resource
-│   ├── argocd-cmd-params-cm.yaml  # ArgoCD configuration
-│   ├── argocd-ingress.yaml        # ArgoCD ingress resource
-│   └── ingress.yaml               # NGINX ingress resource
-└── README.md                # This file
-```
+~~~
+.:
+acm-validation.json  alb-controller  argocd  kubectl.exe  manifests  README.md  terraform
+
+./alb-controller:
+iam-policy.json
+
+./argocd:
+argocd-application.yaml  argocd-cmd-params-cm.yaml  argocd-ingress.yaml  ingress.yaml
+
+./manifests:
+nginx-deployment.yaml  nginx-service.yaml
+
+./terraform:
+backend.tf  main.tf  modules  outputs.tf  provider.tf  variables.tf
+
+./terraform/modules:
+eks  vpc
+
+./terraform/modules/eks:
+main.tf  outputs.tf  variables.tf
+
+./terraform/modules/vpc:
+main.tf  outputs.tf  variables.tf
+
+~~~
 
 ## 🚀 Installation Guide
 
